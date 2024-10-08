@@ -16,6 +16,7 @@ namespace Desafio3.Models
 
         [ForeignKey("RecetaID")]
         public int RecetaID { get; set; }
+
         public Receta Recetas { get; set; }
 
     }

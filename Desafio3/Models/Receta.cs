@@ -13,7 +13,7 @@ namespace Desafio3.Models
         public string DescripcionReceta { get; set; }
         public string TiempoPreparacion { get; set; }
 
-        public ICollection<Ingrediente> Ingredientes { get; set; }
-        public ICollection<Preparacion> Preparaciones { get; set; }
+      //  public ICollection<Ingrediente> Ingredientes { get; set; }
+   //     public ICollection<Preparacion> Preparaciones { get; set; }
     }
 }
