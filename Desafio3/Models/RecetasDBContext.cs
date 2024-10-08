@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Desafio3.Models
 {
-    public class RecetasDBContext : DbContext
+    public class RecetasDBContext : IdentityDbContext<Usuario>
     {
         public RecetasDBContext(DbContextOptions<RecetasDBContext> options)
             : base(options) { }

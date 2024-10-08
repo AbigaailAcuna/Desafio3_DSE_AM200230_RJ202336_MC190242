@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Desafio3.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Desafio3.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class RecetasController : ControllerBase
     {
         private readonly RecetasDBContext _context;
