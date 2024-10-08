@@ -12,7 +12,7 @@ namespace Desafio3.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    
     public class PreparacionesController : ControllerBase
     {
         private readonly RecetasDBContext _context;
@@ -24,6 +24,7 @@ namespace Desafio3.Controllers
 
         // GET: api/Preparaciones
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Preparacion>>> GetPreparaciones()
         {
             return await _context.Preparaciones.Include(x => x.Recetas).ToListAsync();
@@ -32,6 +33,7 @@ namespace Desafio3.Controllers
 
         // GET: api/Preparaciones/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Preparacion>> GetPreparacion(int id)
         {
             var preparacion = await _context.Preparaciones.FindAsync(id);
@@ -47,6 +49,7 @@ namespace Desafio3.Controllers
         // PUT: api/Preparaciones/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> PutPreparacion(int id, Preparacion preparacion)
         {
             if (id != preparacion.Id)
@@ -78,6 +81,7 @@ namespace Desafio3.Controllers
         // POST: api/Preparaciones
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult<Preparacion>> PostPreparacion(Preparacion preparacion)
         {
             _context.Preparaciones.Add(preparacion);
@@ -88,6 +92,7 @@ namespace Desafio3.Controllers
 
         // DELETE: api/Preparaciones/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeletePreparacion(int id)
         {
             var preparacion = await _context.Preparaciones.FindAsync(id);

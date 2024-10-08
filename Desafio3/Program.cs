@@ -4,41 +4,34 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configura la conexión a la base de datos
 builder.Services.AddDbContext<RecetasDBContext>(options =>
-         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add services to the container.
+// Configura Identity
+builder.Services.AddIdentity<Usuario, IdentityRole>()
+    .AddEntityFrameworkStores<RecetasDBContext>()
+    .AddDefaultTokenProviders();
+
+
+builder.Services.AddTransient<IEmailSender<Usuario>, EmailSender>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAuthorization();
-builder.Services.AddAuthentication()
-    .AddCookie(IdentityConstants.ApplicationScheme);
-
-builder.Services.AddIdentityCore<Usuario>()
-    .AddEntityFrameworkStores<RecetasDBContext>()
-    .AddApiEndpoints();
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Mapea los endpoints de Identity
+app.MapIdentityApi<Usuario>();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.MapIdentityApi<Usuario>();
 
 app.Run();

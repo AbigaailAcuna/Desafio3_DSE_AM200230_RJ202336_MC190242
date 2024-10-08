@@ -2,7 +2,7 @@
 
 namespace Desafio3.Models
 {
-    public class Usuario : IdentityUser 
+    public class Usuario : IdentityUser
     {
     }
 }
